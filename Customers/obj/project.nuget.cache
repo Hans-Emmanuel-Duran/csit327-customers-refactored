@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FTEIhA4CGR6btEka4Xvi5qxnUlLs/o91BLzi15CUtZ3HFi36TTe7r7fWgHZfeA3+kAIsVgoS8FHNt9OxmDixXQ==",
+  "dgSpecHash": "L9xCd0LA4f0yV8u5v5XKsoXa+TH/e+LXxJ7TaGT4xE4dsEfczSiEZdIgjkvpviE99q584dkGzEDj6hbeQrCg3g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Hans\\Documents\\School\\CSIT327\\csit327-web-api-exercise-2-Hans-Emmanuel-Duran\\Customers\\Customers\\Customers.csproj",
+  "projectFilePath": "C:\\Users\\Hans\\Documents\\School\\CSIT327\\Customers\\Customers\\Customers.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hans\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Hans\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

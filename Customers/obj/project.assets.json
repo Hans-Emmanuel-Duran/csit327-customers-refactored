@@ -3729,11 +3729,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Hans\\Documents\\School\\CSIT327\\csit327-web-api-exercise-2-Hans-Emmanuel-Duran\\Customers\\Customers\\Customers.csproj",
+      "projectUniqueName": "C:\\Users\\Hans\\Documents\\School\\CSIT327\\Customers\\Customers\\Customers.csproj",
       "projectName": "Customers",
-      "projectPath": "C:\\Users\\Hans\\Documents\\School\\CSIT327\\csit327-web-api-exercise-2-Hans-Emmanuel-Duran\\Customers\\Customers\\Customers.csproj",
+      "projectPath": "C:\\Users\\Hans\\Documents\\School\\CSIT327\\Customers\\Customers\\Customers.csproj",
       "packagesPath": "C:\\Users\\Hans\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Hans\\Documents\\School\\CSIT327\\csit327-web-api-exercise-2-Hans-Emmanuel-Duran\\Customers\\Customers\\obj\\",
+      "outputPath": "C:\\Users\\Hans\\Documents\\School\\CSIT327\\Customers\\Customers\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Hans\\AppData\\Roaming\\NuGet\\NuGet.Config",

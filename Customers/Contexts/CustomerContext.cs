@@ -3,9 +3,9 @@ using Customers.Models;
 
 namespace Customers.Contexts
 {
-    public class DataContext : DbContext
+    public class CustomerContext : DbContext
     {
-        public DataContext(DbContextOptions options) : base(options)
+        public CustomerContext(DbContextOptions options) : base(options)
         {
         }
 

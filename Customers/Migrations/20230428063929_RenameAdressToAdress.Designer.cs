@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Customers.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(CustomerContext))]
     [Migration("20230428063929_RenameAdressToAdress")]
     partial class RenameAdressToAdress
     {
@@ -24,7 +24,7 @@ namespace Customers.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Customers.Models.Customer", b =>
+            modelBuilder.Entity("Customers.Models.CustomerDto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

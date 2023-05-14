@@ -1,5 +1,8 @@
 ﻿using Customers.Contexts;
+using Customers.Dto;
 using Customers.Models;
+using Customers.Repositories;
+using Customers.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,103 +10,84 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Customers.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CustomerController : ControllerBase
-    {
-        
-        private readonly DataContext _dataContext;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class CustomerController : ControllerBase
+	{
 
-        public CustomerController(DataContext dataContext)
-        {
-            _dataContext = dataContext;
-        }
+		private readonly ICustomerService _customerService;
 
-        // GET: api/<CustomerController>
-        [HttpGet]
-        public IActionResult GetAllCustomers()
-        {
-            var customers = _dataContext.Customers.ToList();
-            if (customers.Any())
-                return Ok(customers);
-            else
-                return NoContent();
-        }
+		public CustomerController(ICustomerService customerService)
+		{
+			_customerService = customerService;
+		}
 
-        // GET api/<CustomerController>/5
-        [HttpGet("{id}")]
-        public IActionResult GetCustomer(int id)
-        {
-            var desiredCustomer = _dataContext.Customers.
-                Where(c => c.Id == id)
-                .FirstOrDefault();
+		// GET: api/<CustomerController>
+		[HttpGet]
+		public IActionResult GetAllCustomers()
+		{
+			var customers = _customerService.GetAllCustomers();
+			if (customers.Any())
+				return Ok(customers);
+			else
+				return NoContent();
+		}
 
-            if (desiredCustomer != null)
-                return Ok(desiredCustomer);
-            else
-                return NotFound(); 
-        }
+		// GET api/<CustomerController>/5
+		[HttpGet("{id}")]
+		public IActionResult GetCustomer(int id)
+		{
+			var desiredCustomer = _customerService.GetCustomerById(id);
 
-        // POST api/<CustomerController>
-        [HttpPost]
-        public IActionResult CreateCustomer([FromBody] Customer customer)
-        {
-            if (customer == null)
-                return BadRequest();
+			if (desiredCustomer != null)
+				return Ok(desiredCustomer);
+			else
+				return NotFound(); 
+		}
 
-            if (_dataContext.Customers.Where(c => c.Name.Equals(customer.Name)).FirstOrDefault() != null)
-                return BadRequest($"Customer {customer.Name} already exist");
+		// POST api/<CustomerController>
+		[HttpPost]
+		public IActionResult CreateCustomer([FromBody] CreateCustomerDto customer)
+		{
+			if (customer == null)
+				return BadRequest();
 
-            if (customer.Gender != 'M' && customer.Gender != 'F')
-                return BadRequest($"Customer {customer.Name} gender is unknown");
+			try
+			{
+				_customerService.CreateCustomer(customer);
+			} catch
+			{
+				return BadRequest($"Customer {customer.Name} already exists");
+			}
 
-            _dataContext.Customers.Add(customer);
-            _dataContext.SaveChanges();
+			return Ok(customer);
+		}
 
-            return Ok(customer);
-        }
+		// PUT api/<CustomerController>/5
+		[HttpPut("{id}")]
+		public IActionResult UpdateCustomer([FromBody] CustomerDto customer)
+		{
+			if (customer == null)
+				return BadRequest();
 
-        // PUT api/<CustomerController>/5
-        [HttpPut("{id}")]
-        public IActionResult UpdateCustomer(int id, [FromBody] Customer customer)
-        {
-            if (customer == null)
-                return BadRequest();
+			var updatedOrCreatedCustomer = _customerService.UpdateCustomer(customer);
 
-            var desiredCustomer = _dataContext.Customers.Where(c => c.Id == id).FirstOrDefault();
-            
-            if (desiredCustomer == null)
-            {
-                _dataContext.Customers.Add(customer);
-                _dataContext.SaveChanges();
-                return Ok(customer);
-            }
-            else
-            {
-                desiredCustomer.Name = customer.Name;
-                desiredCustomer.Gender = customer.Gender;
-                desiredCustomer.Address = customer.Address;
-                desiredCustomer.Age = customer.Age;
-                _dataContext.SaveChanges();
-                return Ok(desiredCustomer);
-            }
-        }
+			return Ok(updatedOrCreatedCustomer);
+		}
 
-        // DELETE api/<CustomerController>/5
-        [HttpDelete("{id}")]
-        public IActionResult DeleteCustomer(int id)
-        {
-            var desiredCustomer = _dataContext.Customers.Where(c => c.Id == id).FirstOrDefault();
+		// DELETE api/<CustomerController>/5
+		[HttpDelete("{id}")]
+		public IActionResult DeleteCustomer(int id)
+		{
+			try
+			{
+				_customerService.DeleteCustomer(id);
+			} catch (Exception ex)
+			{
+				return NotFound(ex.Message);
+			}
 
-            if (desiredCustomer == null)
-            {
-                return NotFound($"No customer with id {id} exists.");
-            }
-
-            _dataContext.Customers.Remove(desiredCustomer);
-            _dataContext.SaveChanges();
-
-            return NoContent();
-        }
-    }
+			return NoContent();
+		}
+	}
 }

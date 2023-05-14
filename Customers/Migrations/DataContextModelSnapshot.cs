@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Customers.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(CustomerContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace Customers.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Customers.Models.Customer", b =>
+            modelBuilder.Entity("Customers.Models.CustomerDto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

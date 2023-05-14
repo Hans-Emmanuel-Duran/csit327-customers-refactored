@@ -3,41 +3,47 @@ using Customers.Models;
 
 namespace Customers.Repositories
 {
-    public class CustomerRepository : IRepository<Customer>
-    {
-        private CustomerContext _context;
+	public class CustomerRepository : IRepository<Customer>
+	{
 
-        public CustomerRepository(CustomerContext context)
-        {
-            _context = context;
-        }
+		private readonly CustomerContext _context;
 
-        public Customer Get(int id)
-        {
-            return _context.Customers.Where(c => c.Id == id).FirstOrDefault();
-        }
+		public CustomerRepository(CustomerContext context)
+		{
+			_context = context;
+		}
 
-        public IEnumerable<Customer> GetAll()
-        {
-            return _context.Customers.ToList();
-        }
+		public Customer Get(int id)
+		{
+			return _context.Customers
+				.Where(c => c.Id == id)
+				.FirstOrDefault();
+		}
 
-        public void Create(Customer customer)
-        {
-            _context.Customers.Add(customer);  
-            _context.SaveChanges();
-        }
-        public void Update(Customer customer, Customer updatedCustomer)
-        {
-            customer.Name = updatedCustomer.Name;
-            customer.Age = updatedCustomer.Age;
-            _context.SaveChanges();
-        }
+		public IEnumerable<Customer> GetAll()
+		{
+			return _context.Customers.ToList();
+		}
 
-        public void Delete(Customer customer)
-        {
-            _context.Customers.Remove(customer);
-        }
+		public void Create(Customer customer)
+		{
+			_context.Customers.Add(customer);  
+			_context.SaveChanges();
+		}
+		public void Update(Customer customer, Customer updatedCustomer)
+		{
+			customer.Name = updatedCustomer.Name;
+			customer.Age = updatedCustomer.Age;
+			customer.Gender = updatedCustomer.Gender;
+			customer.Address = updatedCustomer.Address;
+			_context.SaveChanges();
+		}
 
-    }
+		public void Delete(Customer customer)
+		{
+			_context.Customers.Remove(customer);
+			_context.SaveChanges();
+		}
+
+	}
 }
